@@ -1,0 +1,5 @@
+Para executar o Dockerfile
+
+CD API_integracao_de_sistemas\DATABASE
+docker build -t bd_user_tasks .
+docker run -p 5432:5432 --name=dk-bd_user_tasks bd_user_tasks 
