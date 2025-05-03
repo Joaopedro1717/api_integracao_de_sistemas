@@ -1,4 +1,3 @@
-from typing import Optional
 from pydantic import BaseModel
 
 class EquipeCreate(BaseModel):
@@ -6,4 +5,6 @@ class EquipeCreate(BaseModel):
 
 class EquipeRead(BaseModel):
     id: int
-    nome: str 
+    nome: str
+
+    
