@@ -7,6 +7,12 @@ import { Usuario } from './models/usuario';
 import { Equipe } from './models/equipe';
 import { Tarefas } from './models/tarefas';
 import { Andamento } from './models/andamento';
+import { CacheModule } from '@nestjs/cache-manager';
+import redisStore from 'cache-manager-redis-store';
+import { CacheableMemory } from 'cacheable';
+import { createKeyv } from '@keyv/redis';
+
+
 
 @Module({
   imports: [
@@ -28,6 +34,13 @@ import { Andamento } from './models/andamento';
         })
     }),
     TypeOrmModule.forFeature([Usuario, Equipe, Tarefas, Andamento]),
+    CacheModule.registerAsync({
+      useFactory: async () => ({
+        stores: [
+          createKeyv('redis://localhost:6379'), // Conexão com o Redis
+        ],
+      }),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

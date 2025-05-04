@@ -16,6 +16,9 @@ export class Andamento {
     @Column()
     status_atual: string;
 
+    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    data_criacao: Date;
+
     @ManyToOne(() => Usuario, usuario => usuario.andamentos)
     @JoinColumn({ name: 'id_usuario' })
     usuario: Usuario;

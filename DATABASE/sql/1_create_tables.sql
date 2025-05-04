@@ -24,13 +24,14 @@ CREATE TABLE Tarefas (
     FOREIGN KEY (Id_Usuario_Responsavel) REFERENCES Usuarios(Id)
 );
 
-CREATE TABLE Andamento(
-    Id INT PRIMARY KEY,
+CREATE TABLE Andamento (
+    Id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     Mensagem TEXT,
     Status_antigo VARCHAR(50),
     Status_atual VARCHAR(50),
     Id_Usuario INT,
     Id_Tarefa INT,
+    Data_Criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (Id_Usuario) REFERENCES Usuarios(Id),
     FOREIGN KEY (Id_Tarefa) REFERENCES Tarefas(Id)
 );
