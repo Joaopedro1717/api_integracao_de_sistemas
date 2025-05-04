@@ -36,7 +36,7 @@ usuarios-api/
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/JoaoPedro1717/api_integracao_de_sistemas.git
+git clone https://github.com/Joaopedro1717/api_integracao_de_sistemas.git
 cd usuarios-api
 ```
 
