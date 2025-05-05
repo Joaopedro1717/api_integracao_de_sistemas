@@ -1,7 +1,7 @@
 from sqlmodel import Session
 from app.schemas.usuario import UsuarioCreate, UsuarioRead
 from app.models.usuario import Usuario
-from app.repositories.usuario_repo import criar_usuario, buscar_usuario_por_nome
+from app.repositories.usuario_repo import criar_usuario, buscar_usuario_por_nome, buscar_usuario_por_id
 from app.core.redis_client import redis_client
 import json
 
@@ -22,3 +22,9 @@ def buscar_usuario_por_nome_service(session: Session, nome: str) -> UsuarioRead 
     if usuario:
         redis_client.set(cache_key, json.dumps(usuario.model_dump()))
     return buscar_usuario_por_nome(session, nome)
+
+def buscar_usuario_por_id_service(session: Session, id: int) -> UsuarioRead | None:
+    usuario = buscar_usuario_por_id(session, id)
+    if usuario:
+        redis_client.set(f"usuario:{id}", json.dumps(usuario.model_dump()))
+    return usuario
