@@ -29,6 +29,7 @@ export class AppController {
 
   @Post('/notificacao-tarefa')
   async notificacao(@Body() andamentoDTO: andamentoDTO) {
+    console.log('Recebido:', andamentoDTO);
 
     const cacheKey = `andamento:${andamentoDTO.idTarefa}`;
     const cachedMensagem = await this.cacheManager.get<string>(cacheKey);
@@ -48,7 +49,7 @@ export class AppController {
       where: {
         tarefa: { id: andamentoDTO.idTarefa },
       },
-      order: { data_criacao: 'DESC' },
+      order: { data_criacao: 'DESC' }, 
       relations: ['tarefa']
     });
 
@@ -59,25 +60,22 @@ export class AppController {
         mensagem: `${usuario.nome} que pertence a equipe: ${equipe.nome} criou a ${tarefa.titulo}`,
         tarefa: tarefa,
         usuario: usuario,
-        status_atual: tarefa.status,
+        status_atual: andamentoDTO.status, // Use o status do DTO, não da tarefa
         status_antigo: 'Tarefa nova',
       });
-
     } else {
-
       newAndamento = this.andamentoRepository.create({
         mensagem: `${usuario.nome} que pertence a equipe: ${equipe.nome} alterou o status da ${tarefa.titulo} de ${novaTarefa.status_atual} para ${andamentoDTO.status}`,
         tarefa: tarefa,
         usuario: usuario,
         status_atual: andamentoDTO.status,
         status_antigo: novaTarefa.status_atual,
-
       });
     }
 
 
     await this.andamentoRepository.save(newAndamento);
-    console.log(newAndamento.mensagem)
+    console.log(newAndamento.mensagem) 
 
     return newAndamento.mensagem
   }
@@ -99,10 +97,5 @@ export class AppController {
 
     return historicoTarefa;
   }
-
-
-
-
-
 }
 

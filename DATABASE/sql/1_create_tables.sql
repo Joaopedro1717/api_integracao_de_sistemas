@@ -13,7 +13,7 @@ CREATE TABLE Usuarios (
 );
 
 CREATE TABLE Tarefas (
-    Id INT PRIMARY KEY,
+    Id SERIAL PRIMARY KEY,
     Titulo VARCHAR(255),
     Descricao TEXT,
     Status VARCHAR(50),
