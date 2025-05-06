@@ -10,7 +10,7 @@ def criar_equipe(db: Session, equipe: EquipeCreate) -> Equipe:
     db.commit()
     db.refresh(nova_equipe)
 
-    #invalida o cacho após inserção
+    #invalida o cache após inserção
     redis_client.delete("equipes")
 
     return nova_equipe

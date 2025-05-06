@@ -56,6 +56,10 @@ Utilize .env
 
 ### 5.(Opcional) Configure o Redis
 
+```
+docker run -d -p 6379:6379 redis
+```
+
 No arquivo app/core/redis_client.py, defina a URL do Redis (ex: redis://localhost:6379/0).
 
 ### Executar a aplicação
